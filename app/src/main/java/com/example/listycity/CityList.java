@@ -49,18 +49,19 @@ public class CityList {
     }
 
     /**
-     * Check whether a city is in the list
+     * This method checks if the cityList contains the city
      * @param city
-     * The city to check
-     * @return true if the city exists, false otherwise
+     * @return
+     *  true if the city exists, false if it doesn't
      */
     public boolean hasCity(City city) {
         return cities.contains(city);
     }
 
     /**
-     * Count how many cities are in the list
-     * @return the number of cities
+     * This method counts how many cities are in the cityList
+     * @return
+     *  the number of cities in the cityList
      */
     public int countCities() {
         return cities.size();

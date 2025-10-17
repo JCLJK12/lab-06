@@ -51,6 +51,7 @@ public class CityListTest {
         });
     }
 
+
     @Test
     public void testDelete() {
         CityList cityList = mockCityList();
@@ -58,14 +59,10 @@ public class CityListTest {
         City Toronto = new City("Toronto", "ON");
         cityList.add(Toronto);
 
-        // ensure city is added
         assertEquals(2, cityList.getCities().size());
         assertTrue(cityList.getCities().contains(Toronto));
 
-        // delete the city
         cityList.delete(Toronto);
-
-        // verify city was deleted
         assertFalse(cityList.getCities().contains(Toronto));
         assertEquals(1, cityList.getCities().size());
     }
@@ -75,19 +72,30 @@ public class CityListTest {
         CityList cityList = mockCityList();
         assertEquals(1, cityList.countCities());
 
-        // add Toronto to city list
         City Toronto = new City("Toronto", "ON");
         cityList.add(Toronto);
 
-        // test if city list has Toronto and size of cityList = 2
-        assertEquals(true, cityList.hasCity(Toronto));
+        assertTrue(cityList.hasCity(Toronto));
         assertEquals(2, cityList.countCities());
 
-        // test if Vancouver is not in cityList
         City Vancouver = new City("Vancouver", "BC");
-        assertEquals(false, cityList.hasCity(Vancouver));
+        assertFalse(cityList.hasCity(Vancouver));
         assertEquals(2, cityList.countCities());
 
+    }
+
+    @Test
+    public void testHasCityDelete() {
+        CityList cityList = mockCityList();
+        assertEquals(1, cityList.getCities().size());
+
+        City Toronto = new City("Toronto", "ON");
+        assertFalse(cityList.hasCity(Toronto));
+        cityList.add(Toronto);
+
+        assertTrue(cityList.hasCity(Toronto));
+        cityList.delete(Toronto);
+        assertFalse(cityList.getCities().contains(Toronto));
     }
 
 
@@ -95,7 +103,6 @@ public class CityListTest {
     public void testDeleteException() {
         CityList cityList = mockCityList();
         City Toronto = new City("Toronto", "ON");
-        // not in list yet — should throw
         assertThrows(IllegalArgumentException.class, () -> {
             cityList.delete(Toronto);
         });
@@ -103,14 +110,19 @@ public class CityListTest {
 
     @Test
     public void testCountCities() {
-        CityList cityList = mockCityList(); // has 1 city initially
+        CityList cityList = mockCityList();
         assertEquals(1, cityList.countCities());
 
         City Toronto = new City("Toronto", "ON");
+        City Vancouver = new City("Vancouver", "BC");
         cityList.add(Toronto);
-        assertEquals(2, cityList.countCities());
+        cityList.add(Vancouver);
+        assertEquals(3, cityList.countCities());
 
         cityList.delete(Toronto);
+        assertEquals(2, cityList.countCities());
+
+        cityList.delete(Vancouver);
         assertEquals(1, cityList.countCities());
     }
 
